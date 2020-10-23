@@ -59,7 +59,7 @@ public class CouponController {
 			return ResponseEntity.status(401).body(new GeneralResponse("Unauthorized"));
 		}
 
-		return ResponseEntity.ok(couponService.getAllCoupons());
+		return ResponseEntity.ok(couponService.getAllCoupons(user));
 	}
 
 	@ApiOperation(value = "Delete particular Coupon")

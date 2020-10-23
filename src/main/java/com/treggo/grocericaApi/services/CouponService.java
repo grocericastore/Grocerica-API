@@ -13,6 +13,7 @@ import com.treggo.grocericaApi.entities.Cart;
 import com.treggo.grocericaApi.entities.Coupon;
 import com.treggo.grocericaApi.entities.Product;
 import com.treggo.grocericaApi.entities.Users;
+import com.treggo.grocericaApi.enums.userType;
 import com.treggo.grocericaApi.repositories.CouponRepository;
 import com.treggo.grocericaApi.repositories.ProductRepository;
 import com.treggo.grocericaApi.repositories.UsersRepository;
@@ -71,8 +72,12 @@ public class CouponService {
 		}
 	}
 
-	public List<Coupon> getAllCoupons() {
-		return repo.findAll();
+	public List<Coupon> getAllCoupons(Users user) {
+		if(user.getUserType().equals(userType.ADMIN)) {
+			return repo.findAll();
+		} else {
+			return repo.findByVendorId(user.getUserId());
+		}
 	}
 
 	public CouponResponse applyCoupon(ApplyCouponDTO req) {
